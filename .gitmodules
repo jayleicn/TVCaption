@@ -1,0 +1,4 @@
+[submodule "standalone_eval/coco-caption"]
+	path = standalone_eval/coco-caption
+	url = https://github.com/tylin/coco-caption.git
+	branch = master
