@@ -16,9 +16,8 @@ PyTorch implementation of MultiModal Transformer (MMT), a method for multimodal 
 ## Resources
 - Data: [TVC dataset](./data/)
 - Website (with leaderboard): [https://tvr.cs.unc.edu/tvc.html](https://tvr.cs.unc.edu/tvc.html)
-- Submission: [codalab evaluation server](https://competitions.codalab.org/competitions/22814)
-- Related works: [TVR](https://github.com/jayleicn/TVRetrieval), [TVQA](https://github.com/jayleicn/TVQA), [TVQA+](https://github.com/jayleicn/TVQAplus)
-
+- Submission: [codalab evaluation server](https://competitions.codalab.org/competitions/23109)
+- Related works: [TVR (Moment Retrieval)](https://github.com/jayleicn/TVRetrieval), [TVQA (Localized VideoQA)](https://github.com/jayleicn/TVQA), [TVQA+ (Grounded VideoQA)](https://github.com/jayleicn/TVQAplus)
 
 ## Getting started
 ### Prerequisites
