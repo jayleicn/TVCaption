@@ -7,17 +7,32 @@ PyTorch implementation of MultiModal Transformer (MMT), a method for multimodal 
 [Jie Lei](http://www.cs.unc.edu/~jielei/), [Licheng Yu](http://www.cs.unc.edu/~licheng/),
 [Tamara L. Berg](http://tamaraberg.com/), [Mohit Bansal](http://www.cs.unc.edu/~mbansal/)
 
+### TVC Dataset and Task
+
+We extended TVR by collecting extra captions 
+for each annotated moment. This dataset, named TV show Captions (TVC),
+is a large-scale multimodal video captioning dataset, 
+contains 262K captions paired with 108K moments. 
+We show our annotated captions and model generated captions below. 
+Similar to TVR, the TVC task requires systems to gather information
+from both video and subtitle to generate relevant descriptions. 
+![tvc example](./imgs/caption_prediction.jpg)
+
+### Method: MultiModal Transformer (MMT)
 
 <p align="center" >
   <img src="./imgs/tvc_model_overview.png" width="600"/>
 </p>
 
+we designed a MultiModal Transformer (MMT) captioning model which
+follows the classical encoder-decoder transformer architecture. It takes both
+video and subtitle as encoder inputs to generate the captions from the decoder.
 
 ## Resources
 - Data: [TVC dataset](./data/)
 - Website (with leaderboard): [https://tvr.cs.unc.edu/tvc.html](https://tvr.cs.unc.edu/tvc.html)
 - Submission: [codalab evaluation server](https://competitions.codalab.org/competitions/23109)
-- Related works: [TVR (Moment Retrieval)](https://github.com/jayleicn/TVRetrieval), [TVQA (Localized VideoQA)](https://github.com/jayleicn/TVQA), [TVQA+ (Grounded VideoQA)](https://github.com/jayleicn/TVQAplus)
+- Related works: [TVR (Moment Retrieval)](https://github.com/jayleicn/TVRetrieval), [MART (Video Paragraph Captioning)](https://github.com/jayleicn/recurrent-transformer), [TVQA (Localized VideoQA)](https://github.com/jayleicn/TVQA), [TVQA+ (Grounded VideoQA)](https://github.com/jayleicn/TVQAplus)
 
 ## Getting started
 ### Prerequisites
@@ -79,12 +94,12 @@ bash baselines/multimodal_transformer/scripts/train.sh video_sub resnet_i3d
 This code will load all the data (~30GB) into RAM to speed up training,
 use `--no_core_driver` to disable this behavior. 
 
-Training using the above config will stop at around epoch 22, around 3 hours on a single 2080Ti GPU server.
-You should get ~45.0 CIDEr-D and ~10.5 BLEU@4 scores on val set. 
+Training using the above config will stop at around epoch 22, around 3 hours with a single 2080Ti GPU.
+You should get ~45.0 CIDEr-D and ~10.5 BLEU@4 scores on val split. 
 The resulting model and config will be saved at a dir: `baselines/multimodal_transformer/results/video_sub-res-*`
 
 3. MMT inference
-After training, you can inference using the saved model on val or test_public set:
+After training, you can inference using the saved model on val or test_public split:
 ```
 bash baselines/multimodal_transformer/scripts/translate.sh MODEL_DIR_NAME SPLIT_NAME
 ```
@@ -94,6 +109,9 @@ e.g., `video_sub-res-*`.  `SPLIT_NAME` could be `val` or `test_public`.
 
 
 ### Evaluation and Submission
+
+We only release ground-truth for train and val splits, to get results on test-public split, 
+please submit your results follow the instructions here:
 [standalone_eval/README.md](standalone_eval/README.md)
 
 
@@ -103,19 +121,21 @@ If you find this code useful for your research, please cite our paper:
 @inproceedings{lei2020tvr,
   title={TVR: A Large-Scale Dataset for Video-Subtitle Moment Retrieval},
   author={Lei, Jie and Yu, Licheng and Berg, Tamara L and Bansal, Mohit},
-  booktitle={Tech Report},
+  booktitle={ECCV},
   year={2020}
 }
 ```
 
 ## Acknowledgement
-This research is supported by NSF Awards #1633295, 1562098, 1405822, 
-DARPA MCS Grant #N66001-19-2-4031, DARPA KAIROS Grant #FA8750-19-2-1004, 
-Google Focused Research Award, and ARO-YIP Award #W911NF-18-1-0336.
+This research is supported by grants and awards from NSF, DARPA, ARO and Google.
 
-This code is partly inspired by the following projects: 
+This code borrowed components from the following projects: 
+[recurrent-transformer](https://github.com/jayleicn/recurrent-transformer),
 [OpenNMT-py](https://github.com/OpenNMT/OpenNMT-py), 
-[transformers](https://github.com/huggingface/transformers).
+[transformers](https://github.com/huggingface/transformers),
+[coco-caption](https://github.com/tylin/coco-caption),
+we thank the authors for open-sourcing these great projects! 
+
 
 ## Contact
 jielei [at] cs.unc.edu
