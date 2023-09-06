@@ -1,4 +1,12 @@
 import torch
+import sys
+import os
+
+# Get the current directory of the script
+script_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Add the script's directory to the Python path
+sys.path.append(script_dir)
 
 from decode_strategy import DecodeStrategy, length_penalty_builder
 
