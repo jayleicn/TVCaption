@@ -171,7 +171,7 @@ class TVCaptionDataset(Dataset):
 
         feat = np.zeros((self.max_v_len + self.max_sub_len, raw_feat.shape[1]))  # includes [CLS], [SEP]
         if indexed_feat_len > max_v_l:
-            downsamlp_indices = np.linspace(st, ed, max_v_l, endpoint=True).astype(np.int).tolist()
+            downsamlp_indices = np.linspace(st, ed, max_v_l, endpoint=True).astype(np.int64).tolist()
             assert max(downsamlp_indices) < feat_len
             if self.normalize_vfeat:
                 feat[1:max_v_l+1] = l2_normalize_np_array(raw_feat[downsamlp_indices])  # truncate, sample???
@@ -295,7 +295,7 @@ def process_single_vid_sub(sub_listdicts, clip_length):
     timestamps = timestamps / clip_length
     # r-th row of clip_indices is [st_idx, ed_idx), where [st_idx, st_idx+1, ..., ed_idx-1]
     # should be with r-th clip, which is [r*clip_length, (r+1)*clip_length]
-    sentence2clip_st_ed = np.empty_like(timestamps, dtype=np.int)
+    sentence2clip_st_ed = np.empty_like(timestamps, dtype=np.int64)
     sentence2clip_st_ed[:, 0] = np.floor(timestamps[:, 0])
     sentence2clip_st_ed[:, 1] = np.ceil(timestamps[:, 1])
     sentence_idx2clip_indices = {sen_idx: set(range(clip_st_idx, clip_ed_idx))
